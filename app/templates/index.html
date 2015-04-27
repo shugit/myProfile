@@ -16,8 +16,7 @@
       <div class="well">
         <div class="row">
           <img src="{{ project.image }}" class="image-responsive col-sm-4 col-xs-12">
-
-          <div class="col-sm-8"><a href="{{ url_for('project_view', project_id=project.id) }}"><h2>{{ project.name }}</h2></a><br>
+          <div class="col-sm-8"><h2>{{ project.name }}</h2><br>
           {{ project.description }}
           </div>
         </div>

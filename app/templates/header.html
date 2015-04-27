@@ -16,7 +16,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                   {% for project in projects %}
-                    <li><a href="{{ url_for('project_view', project_id=project.id) }}">{{project.name}}</a></li>
+                    <li>{{project.name}}</li>
                   {% endfor %}
                 </ul>
 
