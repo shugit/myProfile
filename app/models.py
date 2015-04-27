@@ -1,43 +1,42 @@
-from hashlib import md5
 from app import db
 
 
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    nickname = db.Column(db.String(64), index=True, unique=True)
-    email = db.Column(db.String(120), index=True, unique=True)
-    posts = db.relationship('Post', backref='author', lazy='dynamic')
-    about_me = db.Column(db.String(140))
-    last_seen = db.Column(db.DateTime)
+class Company(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    name = db.Column(db.String(140))
+    start_time = db.Column(db.Date)
+    end_time = db.Column(db.Date)
+    projects = db.relationship('Project', backref='belongsTo', lazy='dynamic')
 
-    def is_authenticated(self):
-        return True
-
-    def is_active(self):
-        return True
-
-    def is_anonymous(self):
-        return False
-
-    def get_id(self):
-        try:
-            return unicode(self.id)  # python 2
-        except NameError:
-            return str(self.id)  # python 3
-
-    def avatar(self, size):
-        return 'http://www.gravatar.com/avatar/%s?d=mm&s=%d' % \
-            (md5(self.email.encode('utf-8')).hexdigest(), size)
+    def logo(self, size):
+        return ''
 
     def __repr__(self):
         return '<User %r>' % (self.nickname)
 
 
-class Post(db.Model):
+class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    body = db.Column(db.String(140))
-    timestamp = db.Column(db.DateTime)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    description = db.Column(db.Text)
+    start_time = db.Column(db.Date)
+    end_time = db.Column(db.Date)
+    company = db.Column(db.Integer, db.ForeignKey('company.id'))
 
     def __repr__(self):
-        return '<Post %r>' % (self.body)
+        return '<Description %r>' % self.description
+
+
+
+class Academy(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(140))
+    start_time = db.Column(db.Date)
+    end_time = db.Column(db.Date)
+    projects = db.relationship('Project', backref='belongsTo', lazy='dynamic')
+
+    def logo(self, size):
+        return ''
+
+    def __repr__(self):
+        return '<User %r>' % (self.nickname)
+

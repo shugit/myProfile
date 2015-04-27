@@ -1,0 +1,34 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+
+{% block header %}
+{% include 'header.html' %}
+{% endblock %}
+
+
+{% block content %}
+<div class="row">
+  <div class="col-xs-12">
+    <h1 class="text-center">Welcome to my portfolio.</h1>
+    <div class="row">
+        {% for project in projects %}
+      <div class="well">
+        <div class="row">
+          <img src="{{ project.image }}" class="image-responsive col-sm-4 col-xs-12">
+
+          <div class="col-sm-8"><a href="{{ url_for('project_view', project_id=project.id) }}"><h2>{{ project.name }}</h2></a><br>
+          {{ project.description }}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock %}
