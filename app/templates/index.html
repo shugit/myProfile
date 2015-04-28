@@ -10,7 +10,8 @@
 {% block content %}
 <div class="row">
   <div class="col-xs-12">
-    <h1 class="text-center">Welcome to my portfolio.</h1>
+    <h1 class="text-center">++++</h1>
+      <!--
     <div class="row">
         {% for project in projects %}
       <div class="well">
@@ -23,6 +24,38 @@
       </div>
     {% endfor %}
     </div>
+-->
+  <div class="row">
+        {% for company in companies %}
+      <div class="well">
+        <div class="row">
+          <div class="col-sm-8"><h2>{{ company.name }} {{ company.start_time }} ~ {{ company.end_time }}</h2><br>
+          {{ company.position }}
+          {% for project in company.projects%}
+            <div class="col-sm-8"><p>{{ project.name }}</p></div>
+              {% endfor %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+<hr>
+  <div class="row">
+        {% for school in schools %}
+      <div class="well">
+        <div class="row">
+          <div class="col-sm-8"><h2>{{ school.name }} {{ school.start_time }} ~ {{ school.end_time }}</h2><br>
+          {{ school.position }}
+          {% for project in school.projects%}
+            <div class="col-sm-8"><br>{{ project.name }}</div>
+              {% endfor %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+
+
   </div>
 </div>
 {% endblock %}
