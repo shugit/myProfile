@@ -1,0 +1,10 @@
+from app import login_manager
+from models import User
+
+@login_manager.user_loader
+def load_user(userid):
+    return User.get(userid)
+
+@login_manager.token_loader
+def token_loader(token):
+    return User.get(token)

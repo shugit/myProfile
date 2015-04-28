@@ -33,7 +33,8 @@ class User(db.Model):
     fullname = db.Column(db.String(50))
     password = db.Column(db.String(12))
     description=db.column(db.String(200))
-
+    def get_auth_token(self):
+        return self.password
 
     def __repr__(self):
         return "<User(name='%s', fullname='%s', password='%s')>" % (
