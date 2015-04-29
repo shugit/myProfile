@@ -1,0 +1,20 @@
+<!-- extend base layout -->
+{% extends "helper/base.html" %}
+
+
+{% block header %}
+    {% include 'helper/header.html' %}
+{% endblock %}
+
+
+{% block content %}
+    <b>{{ project.name }}</b><br>
+    {{ project.start_time }} ~ {{ project.end_time }} at {{ project.belongsTo.name }}<br>
+    {{ project.description }}<br>
+    <a href="{{ url_for('edit_project_form',project_id=project.id) }}">Edit</a>
+{% endblock %}
+
+
+{% block footer %}
+    {% include 'helper/footer.html' %}
+{% endblock %}

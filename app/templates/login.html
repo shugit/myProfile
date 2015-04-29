@@ -1,0 +1,18 @@
+<!-- extend base layout -->
+{% extends "helper/base.html" %}
+
+{% block content %}
+                    <form action="" method="post" name="login">
+                        {{ form.hidden_tag() }}
+                        <p>
+                            name<br>
+                            {{ form.username(size=80) }}<br>pass{{ form.password(size=80) }}
+                        </p>
+
+                        <p>{{ form.remember_me }} Remember Me</p>{% for error in form.openid.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}<br>
+
+                        <p><input type="submit" value="Sign In"></p>
+                    </form>
+{% endblock %}
