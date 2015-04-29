@@ -60,14 +60,11 @@ class Publication(db.Model):
     publisher = db.Column(db.String(140))
     publish_date = db.Column(db.DateTime)
 
-    def __repr__(self):
-        return "<User(name='%s', fullname='%s', password='%s')>" % (
-                                self.name, self.fullname, self.password)
 
 class Reward(db.Model):
-    def __repr__(self):
-        return "<User(name='%s', fullname='%s', password='%s')>" % (
-                                self.name, self.fullname, self.password)
+    id = db.Column(db.Integer,primary_key=True)
+    name = db.Column(db.String(140))
+    description = db.Column(db.String(500))
 
 
 
@@ -76,7 +73,3 @@ class Skill(db.Model):
     name = db.Column(db.String(140))
     description = db.Column(db.String(200))
     scale = db.Column(db.Integer)
-
-    def __repr__(self):
-        return "<User(name='%s', fullname='%s', password='%s')>" % (
-                                self.name, self.fullname, self.password)

@@ -3,30 +3,18 @@
 
 
 {% block header %}
-{% include 'header.html' %}
+    {% include 'header.html' %}
 {% endblock %}
 
 
 {% block content %}
-<div class="row">
-  <div class="col-xs-12">
-    <h1 class="text-center">DD</h1>
-    <div class="row">
-      <div class="well">
-        <div class="row">
-          <img src="{{ project.image }}" class="image-responsive col-sm-4 col-xs-12">
-          <div class="col-sm-8"><h2>{{ project.name }}</h2><br>
-              {{ project.start_time }} ~ {{ project.end_time }} at {{ project.belongsTo.name }}<br>
-              {{ project.description }}
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+    <b>{{ project.name }}</b><br>
+    {{ project.start_time }} ~ {{ project.end_time }} at {{ project.belongsTo.name }}<br>
+    {{ project.description }}<br>
+    <a href="{{ url_for('edit_project_form',project_id=project.id) }}">Edit</a>
 {% endblock %}
 
 
 {% block footer %}
-{% include 'footer.html' %}
+    {% include 'footer.html' %}
 {% endblock %}

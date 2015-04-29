@@ -1,0 +1,27 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+
+{% block header %}
+{% include 'header.html' %}
+{% endblock %}
+
+
+{% block content %}
+
+    Edit
+    <form action="" method="POST" name="edit_project">
+    {{ form.hidden_tag() }}
+    name:{{ form.name(size=32) }}<br>
+    description:{{ form.description (cols=32,rows=4)}}
+    <input type="submit" value="Save Changes">
+    </form>
+    {% for error in form.errors %}[{{ error }}]
+                    {% endfor %}
+
+{% endblock %}
+
+
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock %}
