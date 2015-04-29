@@ -36,6 +36,47 @@ class User(db.Model):
     def get_auth_token(self):
         return self.password
 
+    def is_authenticated(self):
+        return True
+
+    def is_active(self):
+        return True
+
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        return unicode(self.id)
+
+    def __repr__(self):
+        return "<User(name='%s', fullname='%s', password='%s')>" % (
+                                self.name, self.fullname, self.password)
+
+
+class Publication(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(140))
+    description = db.Column(db.String(500))
+    publisher = db.Column(db.String(140))
+    publish_date = db.Column(db.DateTime)
+
+    def __repr__(self):
+        return "<User(name='%s', fullname='%s', password='%s')>" % (
+                                self.name, self.fullname, self.password)
+
+class Reward(db.Model):
+    def __repr__(self):
+        return "<User(name='%s', fullname='%s', password='%s')>" % (
+                                self.name, self.fullname, self.password)
+
+
+
+class Skill(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(140))
+    description = db.Column(db.String(200))
+    scale = db.Column(db.Integer)
+
     def __repr__(self):
         return "<User(name='%s', fullname='%s', password='%s')>" % (
                                 self.name, self.fullname, self.password)
