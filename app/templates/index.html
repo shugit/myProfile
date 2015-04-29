@@ -1,33 +1,40 @@
 <!-- extend base layout -->
-{% extends "base.html" %}
-
-
-{% block header %}
-    {% include 'header.html' %}
-{% endblock %}
-
+{% extends "helper/base.html" %}
 
 {% block content %}
+
+    {{ user.fullname }}
+    {% for contact in user.contacts %}
+        {{ contact }}
+    {% endfor %}
+    <hr>
     {% for company in companies %}
         <b>{{ company.name }}</b> {{ company.start_time }} ~ {{ company.end_time }}<br>
-        as {{ company.position }}<br>
+        as {{ company.position }} in {{ company.location }}<br>
         {% for project in company.projects %}
-            {{ project.name }} |
+            {{ project.name }} from {{ project.start_time }} till {{ project.end_time }}
+            <br>
         {% endfor %}
         <p>
     {% endfor %}
     <hr>
     {% for school in schools %}
         <b>{{ school.name }}</b> {{ school.start_time }} ~ {{ school.end_time }}<br>
-        being {{ school.position }}<bt>
+        being {{ school.position }} in{{ school.location }}
+        <br>
         {% for project in school.projects %}
-            {{ project.name }} |
+            {{ project.name }} from {{ project.start_time }} till {{ project.end_time }}<br>
         {% endfor %}
         <p>
     {% endfor %}
-{% endblock %}
-
-
-{% block footer %}
-    {% include 'footer.html' %}
+    <hr>
+    {% for reward in rewards %}
+        {{ reward.name }}:{{ reward.description }}<br>{% endfor %}
+    <hr>
+    {% for skill in skills %}
+        {{ skill.name }}:{{ skill.scale }}/10 {{ skill.description }}<br>{% endfor %}
+    <hr>
+    {% for publication in publications %}
+        {{ publication.name }} by{{ publication.publisher }} in {{ publication.publish_date }}:
+        {{ publication.description }}<br>{% endfor %}
 {% endblock %}

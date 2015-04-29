@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, session, url_for, request, g
 from datetime import datetime
 from app import app, db
-from models import Project, Facility, User
+from models import *
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from .forms import LoginForm, EditProjectForm
 import helper
@@ -10,13 +10,21 @@ import helper
 @app.route('/')
 @app.route('/index')
 def index():
-    companies = Facility.query.filter_by(type='company').order_by(Facility.start_time).all()
-    schools = Facility.query.filter_by(type='school').order_by(Facility.start_time).all()
+    the_companies = Facility.query.filter_by(type='company').order_by(Facility.start_time).all()
+    the_schools = Facility.query.filter_by(type='school').order_by(Facility.start_time).all()
+    the_user = User.query.order_by(User.id).first()
+    the_rewards = Reward.query.all()
+    the_skills = Skill.query.all()
+    the_publications = Publication.query.all()
     return render_template('index.html',
                            title='Home',
                            projects=helper.getProjects(),
-                           companies=companies,
-                           schools=schools
+                           companies=the_companies,
+                           schools=the_schools,
+                           user = the_user,
+                           rewards = the_rewards,
+                           skills = the_skills,
+                           publications = the_publications
                            )
 
 
@@ -24,7 +32,7 @@ def index():
 def project(project_id):
     project = Project.query.get(project_id)
     if project:
-        return render_template('project.html',
+        return render_template('display/project.html',
                                project = project,
                                projects = helper.getProjects())
     else:
@@ -34,11 +42,13 @@ def project(project_id):
 
 @app.route('/project/<int:project_id>/edit')
 def edit_project_form(project_id):
-    project = Project.query.get(project_id)
+    the_project = Project.query.get(project_id)
     form = EditProjectForm()
-    form.name.data = project.name
-    form.description.data = project.description
-    return render_template('edit_project.html', form=form, projects=helper.getProjects())
+    form.name.data = the_project.name
+    form.description.data = the_project.description
+    form.start_time.data = the_project.start_time
+    form.end_time.data = the_project.start_time
+    return render_template('edit/project.html', form=form, projects=helper.getProjects())
 
 
 @app.route('/project/<int:project_id>/edit', methods=['GET', 'POST'])
@@ -56,7 +66,7 @@ def edit_project(project_id):
         form.name.data = project.name
         form.description.data = project.description
         flash('Your change is not saved to project %s' % project.name)
-    return render_template('edit_project.html', form=form, projects=helper.getProjects())
+    return render_template('edit/project.html', form=form, projects=helper.getProjects())
 
 
 """
