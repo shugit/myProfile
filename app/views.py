@@ -46,9 +46,13 @@ def edit_project_form(project_id):
     form = EditProjectForm()
     form.name.data = the_project.name
     form.description.data = the_project.description
-    form.start_time.data = the_project.start_time
-    form.end_time.data = the_project.start_time
+    if the_project.start_time is not None:
+        form.start_time.data = the_project.start_time
+    if the_project.end_time is not None:
+        form.end_time.data = the_project.end_time
+    form.set_choices()
     return render_template('edit/project.html', form=form, projects=helper.getProjects())
+
 
 
 @app.route('/project/<int:project_id>/edit', methods=['GET', 'POST'])

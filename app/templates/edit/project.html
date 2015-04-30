@@ -6,10 +6,11 @@
     Edit
     <form action="" method="POST" name="edit_project">
     {{ form.hidden_tag() }}
-    name:{{ form.name(size=32) }}<br>
-    description:{{ form.description (cols=32,rows=4)}}<br>
+    {{ form.name.label }}:{{ form.name(size=32) }}<br>
+    {{ form.description.label }}n:{{ form.description (cols=32,rows=4)}}<br>
         start time:{{ form.start_time }}<br>
         end time:{{ form.end_time }}<br>
+        {{ form.facility.label }}:{{ form.facility }}<br>
     <input type="submit" value="Save Changes">
     </form>
     {% for error in form.errors %}[{{ error }}]

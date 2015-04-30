@@ -32,7 +32,7 @@ class User(db.Model):
     name = db.Column(db.String(50))
     fullname = db.Column(db.String(50))
     password = db.Column(db.String(12))
-    description = db.column(db.String(200))
+    description = db.Column(db.String(200))
 
     def get_auth_token(self):
         return self.password

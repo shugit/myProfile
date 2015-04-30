@@ -9,5 +9,7 @@ app.config.from_object('config')
 db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
-from app import views, models
+WTF_CSRF_SECRET_KEY = 'a random string'
 
+
+from app import views, models
