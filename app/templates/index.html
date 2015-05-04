@@ -8,7 +8,7 @@
         {{ contact }}
     {% endfor %}
     <hr>
-    {% for company in companies %}
+    {% for company in companies %}<a href="{{ url_for('edit_facility', facility_id=company.id) }}">Edit</a>
         <b>{{ company.name }}</b> {{ company.start_time }} ~ {{ company.end_time }}<br>
         as {{ company.position }} in {{ company.location }}<br>
         {% for project in company.projects %}
@@ -18,7 +18,7 @@
         <p>
     {% endfor %}
     <hr>
-    {% for school in schools %}
+    {% for school in schools %}<a href="{{ url_for('edit_facility', facility_id=school.id) }}">Edit</a>
         <b>{{ school.name }}</b> {{ school.start_time }} ~ {{ school.end_time }}<br>
         being {{ school.position }} in{{ school.location }}
         <br>

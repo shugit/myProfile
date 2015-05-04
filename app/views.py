@@ -3,8 +3,9 @@ from datetime import datetime
 from app import app, db
 from models import *
 from flask.ext.login import login_user, logout_user, current_user, login_required
-from .forms import LoginForm, EditProjectForm
+from .forms import LoginForm, EditProjectForm, EditFacilityForm
 import helper
+import pprint
 
 
 @app.route('/')
@@ -21,10 +22,10 @@ def index():
                            projects=helper.getProjects(),
                            companies=the_companies,
                            schools=the_schools,
-                           user = the_user,
-                           rewards = the_rewards,
-                           skills = the_skills,
-                           publications = the_publications
+                           user=the_user,
+                           rewards=the_rewards,
+                           skills=the_skills,
+                           publications=the_publications
                            )
 
 
@@ -33,8 +34,8 @@ def project(project_id):
     project = Project.query.get(project_id)
     if project:
         return render_template('display/project.html',
-                               project = project,
-                               projects = helper.getProjects())
+                               project=project,
+                               projects=helper.getProjects())
     else:
         flash("Project not found")
         return redirect(url_for('index'))
@@ -43,34 +44,74 @@ def project(project_id):
 @app.route('/project/<int:project_id>/edit')
 def edit_project_form(project_id):
     the_project = Project.query.get(project_id)
-    form = EditProjectForm()
+    form = EditProjectForm('1')
     form.name.data = the_project.name
     form.description.data = the_project.description
     if the_project.start_time is not None:
         form.start_time.data = the_project.start_time
     if the_project.end_time is not None:
         form.end_time.data = the_project.end_time
-    form.set_choices()
     return render_template('edit/project.html', form=form, projects=helper.getProjects())
-
 
 
 @app.route('/project/<int:project_id>/edit', methods=['GET', 'POST'])
 def edit_project(project_id):
-    form = EditProjectForm()
+    form = EditProjectForm(request.form)
     project = Project.query.get(project_id)
     if form.validate_on_submit():
         project.name = form.name.data
         project.description = form.description.data
+        project.start_time = form.start_time.data
+        project.end_time = form.end_time.data
+        project.facility = form.facility.data
         db.session.add(project)
         db.session.commit()
         flash('Your change is saved to project %s' % project.name)
         return redirect(url_for('project', project_id=project.id))
     else:
-        form.name.data = project.name
-        form.description.data = project.description
         flash('Your change is not saved to project %s' % project.name)
     return render_template('edit/project.html', form=form, projects=helper.getProjects())
+
+
+'''
+facility
+'''
+
+
+@app.route('/facility/<int:facility_id>/edit')
+def edit_facility_form(facility_id):
+    the_facility = Facility.query.get(facility_id)
+    form = EditFacilityForm()
+    form.name.data = the_facility.name
+    form.position.data = the_facility.position
+    form.location.data = the_facility.location
+    if the_facility.start_time is not None:
+        form.start_time.data = the_facility.start_time
+    if the_facility.end_time is not None:
+        form.end_time.data = the_facility.end_time
+    form.set_projects_choices()
+    form.type.data = '8'
+    return render_template('edit/facility.html', form=form, projects=helper.getProjects())
+
+
+@app.route('/facility/<int:facility_id>/edit', methods=['GET', 'POST'])
+def edit_facility(facility_id):
+    form = EditFacilityForm(request.form)
+    facility = Facility.query.get(facility_id)
+    if form.validate_on_submit():
+        facility.name = form.name.data
+        facility.start_time = form.start_time.data
+        facility.end_time = form.end_time.data
+        facility.location = form.location.data
+        facility.position = form.position.data
+        facility.type = 'school' if form.type.data == 1 else 'company'
+        db.session.add(facility)
+        db.session.commit()
+        flash('Your change is saved to project %s' % facility.name)
+        return redirect(url_for('index'))
+    else:
+        flash('Your change is not saved to project %s' % facility.name)
+    return render_template('edit/facility.html', form=form, projects=helper.getProjects())
 
 
 """
