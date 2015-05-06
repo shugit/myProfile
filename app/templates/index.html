@@ -2,38 +2,43 @@
 {% extends "helper/base.html" %}
 
 {% block content %}
-
     {{ user.fullname }}
     {% for contact in user.contacts %}
         {{ contact }}
     {% endfor %}
     <hr>
-    {% for company in companies %}<a href="{{ url_for('edit_facility', facility_id=company.id) }}">Edit</a>
-        <b>{{ company.name }}</b> {{ company.start_time }} ~ {{ company.end_time }}<br>
-        as {{ company.position }} in {{ company.location }}<br>
+    <h4>Company:</h4><br>
+    {% for company in companies %}
+        <p><b>{{ company.name }}</b> {{ company.start_time }} ~ {{ company.end_time }} <a href="{{ url_for('facility_form', facility_id=company.id,action='edit') }}">Edit</a><br>
+        as <i>{{ company.position }}</i> in {{ company.location }}<br>
+        Projects:<br>
         {% for project in company.projects %}
             {{ project.name }} from {{ project.start_time }} till {{ project.end_time }}
             <br>
         {% endfor %}
-        <p>
+        </p>
     {% endfor %}
     <hr>
-    {% for school in schools %}<a href="{{ url_for('edit_facility', facility_id=school.id) }}">Edit</a>
-        <b>{{ school.name }}</b> {{ school.start_time }} ~ {{ school.end_time }}<br>
-        being {{ school.position }} in{{ school.location }}
-        <br>
+    <h4>Education Experience:</h4><br>
+    <p>{% for school in schools %}
+        <b>{{ school.name }}</b> {{ school.start_time }} ~ {{ school.end_time }} <a href="{{ url_for('facility_form', facility_id=school.id, action='edit') }}">Edit</a><br>
+        being <i>{{ school.position }}</i> in {{ school.location }}<br>
+        Projects:<br>
         {% for project in school.projects %}
             {{ project.name }} from {{ project.start_time }} till {{ project.end_time }}<br>
         {% endfor %}
-        <p>
+        </p>
     {% endfor %}
     <hr>
+    <h4>Rewards:</h4><br>
     {% for reward in rewards %}
         {{ reward.name }}:{{ reward.description }}<br>{% endfor %}
     <hr>
+    <h4>Skills:</h4>
     {% for skill in skills %}
         {{ skill.name }}:{{ skill.scale }}/10 {{ skill.description }}<br>{% endfor %}
     <hr>
+    <h4>Publications:</h4><br>
     {% for publication in publications %}
         {{ publication.name }} by{{ publication.publisher }} in {{ publication.publish_date }}:
         {{ publication.description }}<br>{% endfor %}

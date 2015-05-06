@@ -18,11 +18,28 @@
                   {% for project in projects %}
                     <li><a href="{{ url_for('project', project_id=project.id) }}">{{project.name}}</a></li>
                   {% endfor %}
+                <li><a href="{{ url_for('project_form', project_id='0',action='add') }}">Add Project</a></li>
                 </ul>
-
               </li>
             </ul>
+
+
+          <ul class="nav navbar-nav">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Add<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                <li><a href="{{ url_for('facility_form', facility_id='0',action='add') }}">Add Facility</a></li>
+                    <li><a href="{{ url_for('project_form', project_id='0',action='add') }}">Add Project</a></li>
+                    <li><a href="{{ url_for('skill_form', skill_id='0',action='add') }}">Add Skill</a></li>
+                    <li><a href="{{ url_for('reward_form', reward_id='0',action='add') }}">Add Reward</a></li>
+                </ul>
+              </li>
+            </ul>
+
+
+
           </div>
+
         </div>
       </div>
       <div>Folio: <a href="/index">Home</a></div>

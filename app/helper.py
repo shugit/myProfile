@@ -11,4 +11,4 @@ def token_loader(token):
 
 
 def getProjects():
-    return Project.query.all()
+    return Project.query.order_by(Project.end_time.desc()).all()

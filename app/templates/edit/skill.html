@@ -1,0 +1,17 @@
+{% extends "helper/base.html" %}
+
+{% block content %}
+
+    {{ title }}
+    <form action="" method="POST" name="edit_skill">
+    {{ form.hidden_tag() }}
+    {{ form.name.label }}:{{ form.name(size=32) }}<br>
+
+    {{ form.scale.label }}:{{ form.scale(size=32) }}<br>
+        {{ form.description.label }}:{{ form.description(cols=32,rows=8) }}<br>
+    <input type="submit" value="Save Changes">
+    </form>
+    {% for error in form.errors %}[{{ error }}]
+                    {% endfor %}
+
+{% endblock %}

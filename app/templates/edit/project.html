@@ -3,7 +3,7 @@
 
 {% block content %}
 
-    Edit
+    {{ title }}
     <form action="" method="POST" name="edit_project">
         {{ form.hidden_tag() }}
         {{ form.name.label }}:{{ form.name(size=32) }}<br>
